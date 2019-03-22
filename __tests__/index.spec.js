@@ -1,12 +1,10 @@
 'use strict';
 
-const updateGraphqlSchema = require('../index');
 const path = require('path');
 const fs = require('fs');
-const fetch = require('jest-fetch-mock');
+const fetch = require('node-fetch');
 
-jest.setMock('node-fetch', fetch);
-jest.mock('fs');
+const updateGraphqlSchema = require('../index');
 
 describe('updateGraphqlSchema', () => {
   const output = path.resolve(__dirname, 'schema.json');
@@ -20,26 +18,31 @@ describe('updateGraphqlSchema', () => {
 
   beforeEach(() => {
     // Set up some mocked out file info before each test
-    fs.__setMockFiles(MOCK_FILE_INFO);
     fetch.resetMocks();
+    fs.__restore();
   });
 
-  // it('nomal usage', async () => {
-  //   fetch.mockResponseOnce(successRespons, {
-  //     status: 200,
-  //     headers: { 'content-type': 'application/json', ok: true },
-  //     ok: true,
-  //     okay: true,
-  //   });
-  //   await updateGraphqlSchema({
-  //     endPoint,
-  //     output,
-  //     headers,
-  //   });
-  //   expect(fs.readFileSync(output)).expect(successRespons);
-  // });
+  it('nomal usage', async () => {
+    fs.__setMockFiles(MOCK_FILE_INFO);
+
+    fetch.mockResponse(successRespons, {
+      status: 200,
+      headers: { 'content-type': 'application/json' },
+      ok: true,
+    });
+    await updateGraphqlSchema({
+      endPoint,
+      output,
+      headers,
+    });
+    expect(fs.readFileSync(output)).toBe(successRespons);
+  });
   it('update failed by network reason', async () => {
-    fetch.mockReject(() => Promise.reject('Network Error'));
+    fetch.mockResponse(successRespons, {
+      status: 401,
+      headers: { 'content-type': 'application/json' },
+      ok: false,
+    });
     expect(
       updateGraphqlSchema({
         endPoint,
