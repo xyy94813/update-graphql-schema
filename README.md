@@ -14,19 +14,21 @@
 
 ### Install
 
-Use npm: 
+Use npm:
+
 ```
 npm i update-graphql-schema
 npm i update-graphql-schema -g
 ```
 
 Or use yarn:
+
 ```
 yarn add update-graphql-schema
 yarn global add update-graphql-schema
 ```
 
-### Cli 
+### Cli
 
 ```bin
 Usage: updateSchema [options] <file ...>
@@ -40,6 +42,40 @@ Options:
   -h, --help               output usage information
 ```
 
+#### With Config File
+
+Config file `./updateSchemaConf.js`
+
+```js
+module.exports = {
+  point: 'https://your.graphql.server/graphq',
+  output: './schema.json',
+  headers: {
+    authorization: 'bear XXXXXXXXXXXXXXXXXX',
+  },
+};
+```
+
+Or use json conf `./updateSchemaConf.json`
+
+```json
+{
+  "point": "https://your.graphql.server/graphq",
+  "output": "./schema.json",
+  "headers": {
+    "authorization": "bear XXXXXXXXXXXXXXXXXX"
+  }
+}
+```
+
+Then, run this command
+
+```sh
+updateSchema -c ./updateSchemaConf.js
+// or
+// updateSchema -c ./updateSchemaConf.json
+```
+
 ### Node modules
 
 ```js
@@ -50,11 +86,10 @@ updateGraphqlSchema({
   endPoint: 'https://api.github.com/graphql',
   output: path.resolve(__dirname, 'schema.json'),
   headers: {
-    "Authorization": "bearer 4ad4XXXXXXXXXXXXXXXXX85bf7"
-  }
-})
+    Authorization: 'bearer 4ad4XXXXXXXXXXXXXXXXX85bf7',
+  },
+});
 ```
-
 
 ## Contruibution
 
