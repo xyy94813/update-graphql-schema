@@ -38,9 +38,7 @@ function getEndPoint() {
 }
 
 function getOutputPath() {
-  return (
-    program.output || confInTheFile.output || `${process.cwd()}/schema.json`
-  );
+  return program.output || path.resolve(process.cwd(), localConf.output) || resolveArgPath('schema.json');
 }
 
 const { headers: headersInConfFile = {} } = confInTheFile;
