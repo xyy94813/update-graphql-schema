@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 const program = require('commander');
 const path = require('path');
-const { Headers } = require('node-fetch');
 
 const { version } = require('../package.json');
-const updateGraphqlSchema = require('../index');
+const updateGraphqlSchema = require('../core/updateGraphqlSchema');
 
 const resolveArgPath = val => path.resolve(process.cwd(), val);
 const resolveArgHeaders = val => {
@@ -31,20 +30,19 @@ program
   .option('-p, --point [value]', 'Endpoint url')
   .parse(process.argv);
 
-const confInTheFile = program.config ? require(program.config) : {};
+const localConf = program.config ? require(program.config) : {};
 
 function getEndPoint() {
-  return program.point || confInTheFile.point;
+  return program.point || localConf.point;
 }
 
 function getOutputPath() {
   return program.output || path.resolve(process.cwd(), localConf.output) || resolveArgPath('schema.json');
 }
 
-const { headers: headersInConfFile = {} } = confInTheFile;
 function getHeaders() {
   return {
-    ...headersInConfFile,
+    ...(localConf.headers || {}),
     ...program.headers,
   };
 }

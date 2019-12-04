@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
 
-const updateGraphqlSchema = require('../index');
+const updateGraphqlSchema = require('../core');
 
 describe('updateGraphqlSchema', () => {
   const output = path.resolve(__dirname, 'schema.json');
