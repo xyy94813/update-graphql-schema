@@ -39,6 +39,7 @@ Options:
   -h, --headers <items>    Request Headers
   -o, --output <file ...>  Output Path, Default: `${process.cwd()}/schema.json`
   -p, --point [value]      Endpoint url
+  -t, --type [value]       Schema type `json` or `graphql`. Note: It will always be `json` if output file extension is `json`.
   -h, --help               output usage information
 ```
 
@@ -49,7 +50,8 @@ Config file `./updateSchemaConf.js`
 ```js
 module.exports = {
   point: 'https://your.graphql.server/graphq',
-  output: './schema.json',
+  output: './schema.json', 
+  type: 'json', // or graphq
   headers: {
     authorization: 'bear XXXXXXXXXXXXXXXXXX',
   },
@@ -61,7 +63,8 @@ Or use json conf `./updateSchemaConf.json`
 ```json
 {
   "point": "https://your.graphql.server/graphq",
-  "output": "./schema.json",
+  "output": "./schema.graphql",
+  "type": "graphql",
   "headers": {
     "authorization": "bear XXXXXXXXXXXXXXXXXX"
   }
@@ -84,7 +87,8 @@ const path = require('path');
 
 updateGraphqlSchema({
   endPoint: 'https://api.github.com/graphql',
-  output: path.resolve(__dirname, 'schema.json'),
+  output: path.resolve(__dirname, 'schema.graphql'),
+  schemaType: 'graphql',
   headers: {
     Authorization: 'bearer 4ad4XXXXXXXXXXXXXXXXX85bf7',
   },
