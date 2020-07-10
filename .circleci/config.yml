@@ -5,7 +5,7 @@ references:
   defaults: &DEFAULT
     working_directory: ~/update-graphql-schema
     docker:
-      - image: circleci/node:8.9.1
+      - image: circleci/node:14.4.0
 
   restore_dependencies: &RESTORE_DEPENDENCIES
     # A path is not required here because the cache will be restored to the location from which it was originally saved.
