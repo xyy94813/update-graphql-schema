@@ -1,4 +1,4 @@
-const { introspectionQuery } = require('graphql');
+const { introspectionQuery, getIntrospectionQuery } = require('graphql');
 const fetch = require('node-fetch');
 
 const DEFAULT_HEADERS = {
@@ -9,7 +9,8 @@ async function getJSONSchemaFromEndPoint(endPoint, headers) {
   const response = await fetch(endPoint, {
     method: 'post',
     body: JSON.stringify({
-      query: introspectionQuery,
+      // `introspectionQuery` is deprecated in v15, 
+      query: introspectionQuery || getIntrospectionQuery(), 
     }),
     headers: {
       ...DEFAULT_HEADERS,
