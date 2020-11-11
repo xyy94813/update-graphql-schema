@@ -1,0 +1,3 @@
+{
+  "releaseCommitMessageFormat": "chore: bump version to {{currentTag}} for release"
+}
