@@ -50,7 +50,7 @@ Config file `./updateSchemaConf.js`
 ```js
 module.exports = {
   point: 'https://your.graphql.server/graphq',
-  output: './schema.json', 
+  output: './schema.json',
   type: 'json', // or graphq
   headers: {
     authorization: 'bear XXXXXXXXXXXXXXXXXX',
@@ -95,7 +95,7 @@ updateGraphqlSchema({
 });
 ```
 
-## Contruibution
+## Contributing
 
 DefinitelyTyped only works because of contributions by users like you!
 
