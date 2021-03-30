@@ -1,6 +1,6 @@
 {
   "name": "update-graphql-schema",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A module and cli tool for updating graphql schema",
   "main": "core/index.js",
   "bin": {
