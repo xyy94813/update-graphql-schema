@@ -27,7 +27,7 @@
   "homepage": "https://github.com/xyy94813/update-graphql-schema#readme",
   "dependencies": {
     "commander": "^6.0.0",
-    "graphql": "^15.0.0",
+    "graphql": "^16.0.0",
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
