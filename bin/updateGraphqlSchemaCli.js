@@ -29,35 +29,20 @@ program
   )
   .option('-p, --point [value]', 'Endpoint url')
   .option('-t, --type [value]', 'Schema type `json` or `graphql`. Note: It will always be `json` if output file extension is `json`.')
+  .action(run)
   .parse(process.argv);
 
-const localConf = program.config ? require(program.config) : {};
-
-function getEndPoint() {
-  return program.point || localConf.point;
-}
-
-function getOutputPath() {
-  return program.output || path.resolve(process.cwd(), localConf.output) || resolveArgPath('schema.json');
-}
-
-function getHeaders() {
-  return {
+async function run(options, command) {
+  const localConf = options.config ? require(options.config) : {};
+  const endPoint = options.point || localConf.point;
+  const output = options.output || path.resolve(process.cwd(), localConf.output) || resolveArgPath('schema.json');
+  const schemaType = options.type || localConf.type || 'graphql';
+  const requestHeaders = {
     ...(localConf.headers || {}),
-    ...program.headers,
+    ...options.headers,
   };
-}
 
-function getSchemaType() {
-  return program.type || localConf.type || 'graphql';
-}
-
-async function run() {
   try {
-    const endPoint = getEndPoint();
-    const output = getOutputPath();
-    const schemaType = getSchemaType();
-    const requestHeaders = getHeaders();
     console.group(`updating schema`);
     console.log(`update schema from ${endPoint}`);
     console.log(`output to ${output}`);
@@ -74,5 +59,3 @@ async function run() {
     console.groupEnd();
   }
 }
-
-run();
